@@ -9,18 +9,11 @@ import (
 
 var DB *gorm.DB
 
-func Database(connString string) {
+func Database(connString string) error {
 	fmt.Println("database init, config: ", connString)
-	defer func() {
-		if recov := recover(); recov != nil {
-			fmt.Errorf("panic at: %v", recov)
-			return
-		}
-	}()
-
 	db, err := gorm.Open("mysql", connString)
 	if err != nil {
-		panic(err)
+		return err
 	}
 
 	db.LogMode(true)
@@ -39,6 +32,8 @@ func Database(connString string) {
 	db.DB().SetConnMaxLifetime(time.Second * 30)
 	DB = db
 	migration()
+
+	return nil
 }
 
 func migration() {

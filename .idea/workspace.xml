@@ -1,7 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="09c0247f-1329-4ee9-b043-778ea410020f" name="Default Changelist" comment="" />
+    <list default="true" id="09c0247f-1329-4ee9-b043-778ea410020f" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/user/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user/conf/.env.example" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user/conf/conf.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user/model/init_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/core/userService.go" beforeDir="false" afterPath="$PROJECT_DIR$/user/core/userService.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/user/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/user/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/user/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/model/init.go" beforeDir="false" afterPath="$PROJECT_DIR$/user/model/init.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/services/command" beforeDir="false" afterPath="$PROJECT_DIR$/user/services/command" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -41,7 +55,7 @@
       <recent name="$PROJECT_DIR$/user/services" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Go Build.go build user">
     <configuration name="go build user" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="mMall" />
       <working_directory value="$PROJECT_DIR$/user" />
@@ -51,15 +65,39 @@
       <filePath value="$PROJECT_DIR$/user/main.go" />
       <method v="2" />
     </configuration>
+    <configuration name="TestDatabase in user/model" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="mMall" />
+      <working_directory value="$PROJECT_DIR$/user/model" />
+      <root_directory value="$PROJECT_DIR$/user" />
+      <kind value="PACKAGE" />
+      <package value="user/model" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <pattern value="^\QTestDatabase\E$" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Go Build.go build user" />
+        <item itemvalue="Go Test.TestDatabase in user/model" />
       </list>
     </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>
