@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/micro/micro/v3/service"
-	"github.com/micro/micro/v3/service/logger"
+	"github.com/asim/go-micro/v3"
+	"github.com/asim/go-micro/v3/logger"
 	"user/conf"
 	"user/core"
 	"user/services"
@@ -11,14 +11,17 @@ import (
 func main() {
 	conf.Init()
 
-	srv := service.New(
-		service.Name("user"),
-		//service.Address("127.0.0.1:8001"),
+	srv :=  micro.NewService(
+		micro.Name("user"),
+		micro.Version("latest"),
+		micro.Address(":8888"),
 	)
 
 	srv.Init()
 	// Register handler
-	services.RegisterUserServiceHandler(srv.Server(), new(core.UserService))
+	if err := services.RegisterUserServiceHandler(srv.Server(), new(core.UserService)); err != nil {
+		logger.Fatal(err)
+	}
 
 	// Run service
 	if err := srv.Run(); err != nil {
