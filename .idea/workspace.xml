@@ -1,17 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="817300b1-5150-41f0-9ae2-b97614bf2b96" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/user/client/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/conf/conf.go" beforeDir="false" afterPath="$PROJECT_DIR$/user/conf/conf.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/user/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/go.sum" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/user/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/services/userModels.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/user/services/userModels.pb.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/services/userModels.pb.micro.go" beforeDir="false" afterPath="$PROJECT_DIR$/user/services/userModels.pb.micro.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/services/userService.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/user/services/userService.pb.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/services/userService.pb.micro.go" beforeDir="false" afterPath="$PROJECT_DIR$/user/services/userService.pb.micro.go" afterDir="false" />
-    </list>
+    <list default="true" id="817300b1-5150-41f0-9ae2-b97614bf2b96" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -33,6 +23,7 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/user/core/userService.go" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/user/client/main.go" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/user/services/protos/userModels.proto" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/user/conf/conf.go" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/user/main.go" root0="FORCE_HIGHLIGHTING" />
