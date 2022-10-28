@@ -1,30 +1,49 @@
 package main
 
 import (
+	"fmt"
+	httpServer "github.com/asim/go-micro/plugins/server/http/v3"
 	"github.com/asim/go-micro/v3"
 	"github.com/asim/go-micro/v3/logger"
+	"github.com/asim/go-micro/v3/registry"
+	"github.com/asim/go-micro/v3/server"
+	"github.com/gin-gonic/gin"
 	"user/conf"
-	"user/core"
-	"user/services"
+	"user/handler"
+	"user/micro_server"
 )
 
 func main() {
 	conf.Init()
+	go func() {
+		fmt.Println("Starting micro server.")
+		micro_server.Init()
+	}()
 
-	srv :=  micro.NewService(
-		micro.Name("user"),
-		micro.Version("latest"),
-		micro.Address(":8888"),
+	srv := httpServer.NewServer(
+		server.Name("go.micro.web.DemoHTTP"),
+		server.Address(":8082"),
 	)
 
-	srv.Init()
-	// Register handler
-	if err := services.RegisterUserServiceHandler(srv.Server(), new(core.UserService)); err != nil {
+	router := gin.New()
+	router.Use(gin.Recovery())
+	router.GET("/logic/:username/:password", handler.LoginHandler)
+	router.POST("/user/register", handler.RegisterHandler)
+
+	hd := srv.NewHandler(router)
+	if err := srv.Handle(hd); err != nil {
 		logger.Fatal(err)
 	}
 
+	service :=  micro.NewService(
+		micro.Server(srv),
+		micro.Registry(registry.NewRegistry()),
+	)
+	service.Init()
+
 	// Run service
-	if err := srv.Run(); err != nil {
+	if err := service.Run(); err != nil {
 		logger.Fatal(err)
 	}
 }
+
