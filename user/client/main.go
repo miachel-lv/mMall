@@ -8,10 +8,10 @@ import (
 )
 
 func main() {
-	ServiceOne()
+	RequestUserLoginService()
 }
 
-func ServiceOne() {
+func RequestUserLoginService() {
 	service := micro.NewService()
 	service.Init()
 
