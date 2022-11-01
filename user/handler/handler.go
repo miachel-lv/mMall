@@ -11,14 +11,19 @@ import (
 )
 
 type UserService struct {
-	UserName string `json:"username"`
-	Password string `json:"password"`
-	PasswordConfirm string `json:"password_confirm"`
+	UserName string `form:"username" json:"username"`
+	Password string `form:"password" json:"password"`
+	PasswordConfirm string `form:"password_confirm" json:"password_confirm"`
 }
 
 func (self *UserService) Verify() bool {
-	//TODO
-	return false
+	if self.UserName == "" {
+		return false
+	}
+	if self.Password == "" {
+		return false
+	}
+	return true
 }
 
 var service micro.Service
@@ -28,23 +33,43 @@ func init() {
 	service.Init()
 }
 
-func LoginHandler(c *gin.Context) {
-	name := c.Param("username")
-	password := c.Param("password")
-	fmt.Println("username: ", name, " password: ", password)
+func (self *UserService)LoginHandler(c *gin.Context) serializer.Response {
+	if !self.Verify() {
+		return serializer.Response{
+			Status: e.InvalidParams,
+			//TODO 添加 Status code对应的string.
+			//Msg:
+		}
+	}
+
+	fmt.Println("username: ", self.UserName, " password: ", self.Password)
+	if self.UserName == "" || self.Password == "" {
+		return serializer.Response{
+			Status: e.InvalidParams,
+			//TODO 添加 Status code对应的string.
+			//Msg:
+		}
+	}
 
 	cl := services.NewUserService("user", service.Client())
 	resp, err := cl.UserLogin(context.Background(), &services.UserRequest{
-		UserName: name,
-		Password: password,
+		UserName: self.UserName,
+		Password: self.Password,
 	})
 	if err != nil {
 		fmt.Println(err)
-		c.JSON(201, gin.H{"code": resp.Code, "msg": err.Error()})
-		return
+		return serializer.Response{
+			Status: e.ERROR,
+			//Msg:
+		}
 	}
 
-	c.JSON(e.SUCCESS, gin.H{"code": e.SUCCESS, "msg": resp.UserDetail})
+	fmt.Println("UserDetail: ", resp.UserDetail.String())
+
+	return serializer.Response{
+		Status: e.SUCCESS,
+		Msg: resp.UserDetail.String(),
+	}
 }
 
 func (self *UserService)RegisterHandler() serializer.Response {

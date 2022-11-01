@@ -1,9 +1,7 @@
 package e
 
-import "net/http"
-
 const (
-	SUCCESS       = http.StatusOK
-	InvalidParams = http.StatusBadRequest
-	ERROR         = http.StatusInternalServerError
+	SUCCESS       = 200
+	InvalidParams = 400
+	ERROR         = 500
 )
