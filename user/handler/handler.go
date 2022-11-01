@@ -5,8 +5,21 @@ import (
 	"fmt"
 	"github.com/asim/go-micro/v3"
 	"github.com/gin-gonic/gin"
+	"user/pkg/e"
+	"user/serializer"
 	"user/services"
 )
+
+type UserService struct {
+	UserName string `json:"username"`
+	Password string `json:"password"`
+	PasswordConfirm string `json:"password_confirm"`
+}
+
+func (self *UserService) Verify() bool {
+	//TODO
+	return false
+}
 
 var service micro.Service
 
@@ -31,28 +44,37 @@ func LoginHandler(c *gin.Context) {
 		return
 	}
 
-	c.JSON(200, gin.H{"code": 200, "msg": resp.UserDetail})
+	c.JSON(e.SUCCESS, gin.H{"code": e.SUCCESS, "msg": resp.UserDetail})
 }
 
-func RegisterHandler(c *gin.Context) {
-
-	c.ShouldBind()
-	userName := ""
-	password := ""
+func (self *UserService)RegisterHandler() serializer.Response {
+	if !self.Verify() {
+		return serializer.Response{
+			Status: e.InvalidParams,
+			//TODO 添加 Status code对应的string.
+			//Msg:
+		}
+	}
 
 	cl := services.NewUserService("user", service.Client())
 	resp, err := cl.UserRegister(context.Background(), &services.UserRequest{
-		UserName: userName,
-		Password: password,
-		PasswordConfirm: password,
+		UserName: self.UserName,
+		Password: self.Password,
+		PasswordConfirm: self.PasswordConfirm,
 	})
 	if err != nil {
 		fmt.Println("micro UserRegister fail: ", err.Error())
-		c.JSON(200, gin.H{"code": resp.Code, "msg": err.Error()})
-		return
+		//TODO 区分micro 返回的错误码
+		return serializer.Response{
+			Status: e.ERROR,
+			//Msg:
+		}
 	}
 
-	c.JSON(200, gin.H{"code": resp.Code, "msg": resp.UserDetail})
+	return serializer.Response{
+		Status: e.SUCCESS,
+		Msg: resp.String(),
+	}
 }
 
 

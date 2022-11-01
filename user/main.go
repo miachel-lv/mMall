@@ -8,6 +8,7 @@ import (
 	"github.com/asim/go-micro/v3/registry"
 	"github.com/asim/go-micro/v3/server"
 	"github.com/gin-gonic/gin"
+	"user/api"
 	"user/conf"
 	"user/handler"
 	"user/micro_server"
@@ -28,7 +29,7 @@ func main() {
 	router := gin.New()
 	router.Use(gin.Recovery())
 	router.GET("/logic/:username/:password", handler.LoginHandler)
-	router.POST("/user/register", handler.RegisterHandler)
+	router.POST("/user/register", api.UserRegister)
 
 	hd := srv.NewHandler(router)
 	if err := srv.Handle(hd); err != nil {
