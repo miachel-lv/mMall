@@ -26,11 +26,13 @@ func (self *UserService) Verify() bool {
 	return true
 }
 
-var service micro.Service
+//var service micro.Service
+var cl services.UserService
 
 func init() {
-	service = micro.NewService()
+	service := micro.NewService()
 	service.Init()
+	cl = services.NewUserService("user", service.Client())
 }
 
 func (self *UserService)LoginHandler(c *gin.Context) serializer.Response {
@@ -43,15 +45,6 @@ func (self *UserService)LoginHandler(c *gin.Context) serializer.Response {
 	}
 
 	fmt.Println("username: ", self.UserName, " password: ", self.Password)
-	if self.UserName == "" || self.Password == "" {
-		return serializer.Response{
-			Status: e.InvalidParams,
-			//TODO 添加 Status code对应的string.
-			//Msg:
-		}
-	}
-
-	cl := services.NewUserService("user", service.Client())
 	resp, err := cl.UserLogin(context.Background(), &services.UserRequest{
 		UserName: self.UserName,
 		Password: self.Password,
@@ -81,7 +74,6 @@ func (self *UserService)RegisterHandler() serializer.Response {
 		}
 	}
 
-	cl := services.NewUserService("user", service.Client())
 	resp, err := cl.UserRegister(context.Background(), &services.UserRequest{
 		UserName: self.UserName,
 		Password: self.Password,
