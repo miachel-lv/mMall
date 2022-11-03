@@ -3,7 +3,7 @@ package micro_server
 import (
 	"github.com/asim/go-micro/v3"
 	"github.com/asim/go-micro/v3/logger"
-	"user/core"
+	"user/handler"
 	"user/services"
 )
 
@@ -15,7 +15,7 @@ func Init() {
 	)
 	srv.Init()
 	// Register handler
-	if err := services.RegisterUserServiceHandler(srv.Server(), new(core.UserService)); err != nil {
+	if err := services.RegisterUserServiceHandler(srv.Server(), new(handler.UserService)); err != nil {
 		logger.Fatal(err)
 	}
 
