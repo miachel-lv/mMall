@@ -1,10 +1,13 @@
-package model
+package dao_test_test
 
-import "testing"
+import (
+	"testing"
+	"user/dao"
+)
 
 func TestDatabase(t *testing.T) {
 	connStr := "root:root1234@tcp(127.0.0.1:3306)/m_mall?charset=utf8&parseTime=True&loc=Local"
-	err := Database(connStr)
+	err := dao.Database(connStr)
 	if err != nil {
 		t.Fatal(err)
 	}

@@ -7,6 +7,7 @@ import (
 	"github.com/asim/go-micro/v3"
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
+	"user/dao"
 	"user/model"
 	"user/pkg/e"
 	"user/serializer"
@@ -101,7 +102,7 @@ func (*UserService) UserLogin(ctx context.Context, req *services.UserRequest, re
 	fmt.Println("----UserLogin")
 	var user model.User
 	resp.Code = 200
-	if err := model.DB.Where("user_name=?", req.UserName).First(&user).Error; err != nil {
+	if err := dao.DB.Where("user_name=?", req.UserName).First(&user).Error; err != nil {
 		if gorm.IsRecordNotFoundError(err) {
 			resp.Code = 400
 			return nil
@@ -125,7 +126,7 @@ func (*UserService) UserRegister(ctx context.Context, req *services.UserRequest,
 	}
 
 	count := 0
-	if err := model.DB.Model(&model.User{}).Where("user_name=?", req.UserName).Count(&count).Error; err != nil {
+	if err := dao.DB.Model(&model.User{}).Where("user_name=?", req.UserName).Count(&count).Error; err != nil {
 		return err
 	}
 
@@ -142,7 +143,7 @@ func (*UserService) UserRegister(ctx context.Context, req *services.UserRequest,
 		return err
 	}
 
-	if err := model.DB.Create(&user).Error; err != nil {
+	if err := dao.DB.Create(&user).Error; err != nil {
 		return err
 	}
 

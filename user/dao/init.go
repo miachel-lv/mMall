@@ -1,10 +1,11 @@
-package model
+package dao
 
 import (
 	"fmt"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 	"time"
+	"user/model"
 )
 
 var DB *gorm.DB
@@ -37,5 +38,10 @@ func Database(connString string) error {
 }
 
 func migration() {
-	DB.Set(`gorm:table_option`, "charset=utf8mb4").AutoMigrate(&User{})
+	DB.Set(`gorm:table_option`, "charset=utf8mb4").AutoMigrate(&model.User{})
 }
+
+//func NewDBClient(ctx context.Context) *gorm.DB {
+//	db := DB
+//	return db.WithContext(ctx)
+//}

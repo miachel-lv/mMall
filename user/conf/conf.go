@@ -3,7 +3,7 @@ package conf
 import (
 	"fmt"
 	"os"
-	"user/model"
+	"user/dao"
 )
 
 func Init() {
@@ -23,5 +23,5 @@ func Init() {
 	fmt.Println("get MYSQL_DSN: ", os.Getenv("MYSQL_DSN"))
 
 	//model.Database(os.Getenv("MYSQL_DSN"))
-	model.Database("root:root1234@tcp(127.0.0.1:3306)/m_mall?charset=utf8&parseTime=True&loc=Local")
+	dao.Database("root:root1234@tcp(127.0.0.1:3306)/m_mall?charset=utf8&parseTime=True&loc=Local")
 }
