@@ -6,6 +6,7 @@ require (
 	github.com/asim/go-micro/plugins/server/http/v3 v3.7.0
 	github.com/asim/go-micro/v3 v3.5.2-0.20210630062103-c13bb07171bc
 	github.com/gin-gonic/gin v1.8.1
+	github.com/go-redis/redis v6.15.9+incompatible
 	github.com/golang/protobuf v1.5.2
 	github.com/jinzhu/gorm v1.9.16
 	golang.org/x/crypto v0.0.0-20210711020723-a769d52b0f97
