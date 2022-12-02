@@ -27,3 +27,9 @@ func UserRegister(c *gin.Context) {
 	res := userRegister.RegisterHandler()
 	c.JSON(http.StatusOK, res)
 }
+
+func Index(c *gin.Context) {
+	c.JSON(http.StatusOK, map[string]interface{}{
+		"message": "index",
+	})
+}

@@ -29,6 +29,7 @@ func main() {
 	router.Use(gin.Recovery())
 	router.POST("/user/login", api.UserLogin)
 	router.POST("/user/register", api.UserRegister)
+	router.GET("/",  api.Index)
 
 	hd := srv.NewHandler(router)
 	if err := srv.Handle(hd); err != nil {
