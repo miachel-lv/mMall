@@ -10,4 +10,8 @@ const (
 	ErrorAuthCheckTokenTimeout     = 30002 //token 过期
 	ErrorAuthToken                 = 30003
 	ErrorAuth                      = 30004
+
+	//对象存储错误
+	ErrorOss        = 50001
+	ErrorUploadFile = 50002
 )

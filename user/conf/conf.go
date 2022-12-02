@@ -6,6 +6,42 @@ import (
 	"user/dao"
 )
 
+var (
+	AppMode  string
+	HttpPort string
+
+	Db         string
+	DbHost     string
+	DbPort     string
+	DbUser     string
+	DbPassWord string
+	DbName     string
+
+	AccessKey   string
+	SerectKey   string
+	Bucket      string
+	QiniuServer string
+
+	ValidEmail string
+	SmtpHost   string
+	SmtpEmail  string
+	SmtpPass   string
+
+	PhotoHost        string
+	ProductPhotoPath string
+	AvatarPath       string
+
+	EsHost  string
+	EsPort  string
+	EsIndex string
+
+	RabbitMQ         string
+	RabbitMQUser     string
+	RabbitMQPassWord string
+	RabbitMQHost     string
+	RabbitMQPort     string
+)
+
 func Init() {
 	//defer func() {
 	//	if recov := recover(); recov != nil {
