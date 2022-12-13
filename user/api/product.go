@@ -2,9 +2,7 @@ package api
 
 import (
 	"github.com/gin-gonic/gin"
-	"user/dao"
 	"user/handler"
-	"user/pkg/e"
 	"user/pkg/utils"
 )
 
@@ -15,6 +13,9 @@ func CreateProduct(c *gin.Context) {
 	createProductService := handler.ProductService{}
 	//c.SaveUploadedFile()
 	if err := c.ShouldBind(&createProductService); err == nil {
-		
+		res := createProductService.Create(claim.ID, files)
+		c.JSON(200, res)
+	} else {
+		c.JSON(400, ErrorResponse(err))
 	}
 }

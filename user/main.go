@@ -11,6 +11,7 @@ import (
 	"user/api"
 	"user/conf"
 	"user/micro_server"
+	"user/middleware"
 )
 
 func main() {
@@ -30,6 +31,13 @@ func main() {
 	router.POST("/user/login", api.UserLogin)
 	router.POST("/user/register", api.UserRegister)
 	router.GET("/",  api.Index)
+
+	authed := router.Group("/") //需要登陆保护
+	authed.Use(middleware.JWT())
+	{
+		// 商品操作
+		authed.POST("product", api.CreateProduct)
+	}
 
 	hd := srv.NewHandler(router)
 	if err := srv.Handle(hd); err != nil {
