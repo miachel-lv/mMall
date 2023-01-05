@@ -116,4 +116,59 @@ func (service *ProductService) Create(uId uint, files []*multipart.FileHeader) s
 	}
 }
 
+func (service *ProductService) Update(id string) serializer.Response {
+	var product model.Product
+	dao.DB.Model(&model.Product{}).First(&product, id)
+	product.Name = service.Name
+	product.CategoryID = uint(service.CategoryID)
+	product.Title = service.Title
+	product.Info = service.Info
+	product.ImgPath = service.ImgPath
+	product.Price = service.Price
+	product.DiscountPrice = service.DiscountPrice
+	product.OnSale = service.OnSale
+	code := e.SUCCESS
+	err := dao.DB.Save(&product).Error
+	if err != nil {
+		//logging.Info(err)
+		code = e.ErrorDatabase
+		return serializer.Response{
+			Status: code,
+			Msg: e.GetMsg(code),
+			Error: err.Error(),
+		}
+	}
+	return serializer.Response {
+		Status: code,
+		Msg: e.GetMsg(code),
+	}
+}
 
+func (service *ProductService) Delete(id string) serializer.Response {
+	var product model.Product
+	code := e.SUCCESS
+	err := dao.DB.First(&product, id).Error
+	if err != nil {
+		//logging.Info(err)
+		code := e.ErrorDatabase
+		return serializer.Response{
+			Status: code,
+			Msg: e.GetMsg(code),
+			Error: err.Error(),
+		}
+	}
+	err = dao.DB.Delete(&product).Error
+	if err != nil {
+		//logging.Info(err)
+		code = e.ErrorDatabase
+		return  serializer.Response{
+			Status: code,
+			Msg: e.GetMsg(code),
+			Error: err.Error(),
+		}
+	}
+	return serializer.Response {
+		Status: code,
+		Msg: e.GetMsg(code),
+	}
+}

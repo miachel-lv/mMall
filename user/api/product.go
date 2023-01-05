@@ -19,3 +19,20 @@ func CreateProduct(c *gin.Context) {
 		c.JSON(400, ErrorResponse(err))
 	}
 }
+
+func UpdateProduct(c *gin.Context) {
+	updateProductService := handler.ProductService{}
+	if err := c.ShouldBind(&updateProductService); err == nil {
+		res := updateProductService.Update(c.Param("id"))
+		c.JSON(200, res)
+	} else {
+		c.JSON(400, ErrorResponse(err))
+		//utils.LogrusObj.Infoln(err)
+	}
+}
+
+func DeleteProduct(c *gin.Context) {
+	deleteProductService := handler.ProductService{}
+	res := deleteProductService.Delete(c.Param("id"))
+	c.JSON(200, res)
+}
