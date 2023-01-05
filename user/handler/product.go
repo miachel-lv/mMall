@@ -172,3 +172,67 @@ func (service *ProductService) Delete(id string) serializer.Response {
 		Msg: e.GetMsg(code),
 	}
 }
+
+func (service *ProductService) List() serializer.Response {
+	var products []model.Product
+	var total int64
+	code := e.SUCCESS
+	if service.PageSize == 0 {
+		service.PageSize = 15
+	}
+	if service.CategoryID == 0 {
+		if err := dao.DB.Model(model.Product{}).
+			Count(&total).Error; err != nil {
+				//logging.Info(err)
+				code = e.ErrorDatabase
+				return serializer.Response{
+					Status: code,
+					Msg: e.GetMsg(code),
+					Error: err.Error(),
+				}
+		}
+
+		if err := dao.DB.Offset((service.PageNum - 1) * service.PageSize).
+			Limit(service.PageSize).Find(&products).Error; err != nil {
+				//logging.Info(err)
+				code = e.ErrorDatabase
+				return serializer.Response {
+					Status: code,
+					Msg: e.GetMsg(code),
+					Error: err.Error(),
+				}
+		}
+	} else {
+		if err := dao.DB.Model(model.Product{}).Preload("Category").
+			Where("category_id = ?", service.CategoryID).
+			Count(&total).Error; err != nil {
+				//logging.Info(err)
+				code = e.ErrorDatabase
+				return serializer.Response{
+					Status: code,
+					Msg: e.GetMsg(code),
+					Error: err.Error(),
+				}
+		}
+
+		if err := dao.DB.Model(model.Product{}).Preload("Category").
+			Where("category_id = ?", service.CategoryID).
+			Offset((service.PageNum - 1) * service.PageSize).
+			Limit(service.PageSize).
+			Find(&products).Error; err != nil {
+				//logging.Info(err)
+				code = e.ErrorDatabase
+				return serializer.Response{
+					Status: code,
+					Msg: e.GetMsg(code),
+					Error: err.Error(),
+				}
+		}
+	}
+	var productList []serializer.Product
+	for _, item := range products {
+		products := serializer.BuildProduct(item)
+		productList = append(productList, products)
+	}
+	return serializer.BuildListResponse(serializer.BuildProducts(products), uint(total))
+}

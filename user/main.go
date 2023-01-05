@@ -32,6 +32,8 @@ func main() {
 	router.POST("/user/register", api.UserRegister)
 	router.GET("/",  api.Index)
 
+	router.GET("products", api.ListProducts)
+
 	authed := router.Group("/") //需要登陆保护
 	authed.Use(middleware.JWT())
 	{

@@ -7,4 +7,18 @@ type Response struct {
 	Error string `json:"error"`
 }
 
+type DataList struct {
+	Item  interface{} `json:"item"`
+	Total uint        `json:"total"`
+}
 
+func BuildListResponse(items interface{}, total uint) Response {
+	return Response{
+		Status: 200,
+		Data: DataList {
+			Item: items,
+			Total: total,
+		},
+		Msg: "ok",
+	}
+}

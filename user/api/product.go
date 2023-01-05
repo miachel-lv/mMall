@@ -36,3 +36,15 @@ func DeleteProduct(c *gin.Context) {
 	res := deleteProductService.Delete(c.Param("id"))
 	c.JSON(200, res)
 }
+
+
+func ListProducts(c *gin.Context) {
+	listProductsService := handler.ProductService{}
+	if err := c.ShouldBind(&listProductsService); err == nil {
+		res := listProductsService.List()
+		c.JSON(200, res)
+	} else {
+		c.JSON(400, ErrorResponse(err))
+		//util.LogrusObj.Infoln(err)
+	}
+}
